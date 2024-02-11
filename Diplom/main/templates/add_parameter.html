@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/add_parameter.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление параметра</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h2>Выберите продукт</h2>
+        <select id="product" name="product">
+            {% for product in user_products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <h3>Название параметра</h3>
+        <input type="text" id="param_name" name="param_name">
+        <h3>Значение параметра</h3>
+        <input type="text" id="param_value" name="param_value"><br>
+        <button type="submit">Добавить</button>
+    </form>
+</body>
+</html>

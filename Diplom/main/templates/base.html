@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/Base.css' %}">
+    <title>Ваша страница</title>
+</head>
+<body>
+
+<header>
+    <div class="left-links">
+        <p>Список товаров</p>
+    </div>
+    <div class="right-links">
+        {% if request.user.is_authenticated %}
+            <button><a href="/accounts/profile/">Личный кабинет</a></button>
+            <button><a href="logout/">Выйти</a></button>
+        {% else %}
+            <button><a href="/register/">Регистрация</a></button>
+            <button><a href="api/v1/drf-auth/login/">Войти</a></button>
+            <button><a href="/password/reset/">Забыли пароль?</a></button>
+        {% endif %}
+    </div>
+</header>
+<main>
+    <h1>Товары</h1>
+    <ul>
+        {% for good in goods %}
+        <li>
+            <h2>{{ good.shop.name }}</h2> <!-- Вывод названия магазина -->
+            <p>{{ good.name }}</p>
+            <p>Цена: {{ good.price }}</p>
+            <p>Количество: {{ good.quantity }}</p>
+            <p>Параметры: {{ good.formatted_parameters | safe }}</p>
+            {% if account_type == 'Покупатель' %}
+            <form method="post" action="{% url 'add_to_cart' good.id %}">
+                {% csrf_token %}
+                <input type="text" name="delivery_address" placeholder="Введите адрес доставки" required>
+                <button type="submit">Добавить в корзину</button>
+            </form>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</main>
+</body>
+</html>

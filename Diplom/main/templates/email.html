@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+</head>
+<body>
+    <h1>Новый заказ от покупателя</h1>
+    <p>Вашему магазину поступил новый заказ от покупателя. Ниже представлен список товаров:</p>
+    <ul>
+        {% for cart_item in cart_items %}
+            <li>{{ cart_item.category }} - {{ cart_item.model }}</li>
+        {% endfor %}
+    </ul>
+    <p>С уважением, ваш магазин</p>
+</body>
+</html>

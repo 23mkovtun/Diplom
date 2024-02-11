@@ -1,0 +1,76 @@
+/* add_parameter.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #333333;
+    color: white;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+h2 {
+    text-align: center;
+}
+
+select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 8px;
+    border: 1px solid #cccccc; /* изменен цвет границы */
+    border-radius: 5px;
+    background-color: #333333;
+    color: white;
+}
+
+h3 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+form input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-bottom: 2px white solid;
+    width: 300px;
+    margin-top: 20px;
+}
+
+form input:focus {
+    outline: none;
+    color: white;
+}
+
+button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #1f1f1f; /* измененный цвет фона кнопки */
+    color: #ffffff; /* измененный цвет текста кнопки */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* добавлено плавное изменение цвета */
+}
+
+button[type="submit"]:hover {
+    background-color: #555555; /* измененный цвет фона кнопки при наведении */
+}

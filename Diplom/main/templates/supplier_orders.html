@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказы поставщика</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/supplier_order.css' %}">
+</head>
+<body>
+<header>
+    <h1>Ваши заказы</h1>
+    <div class="button-actions">
+        <a href="/">Главная</a>
+        <a href="/accounts/profile/">Личный кабинет</a>
+    </div>
+</header>
+<main>
+    <div class="order-list">
+        {% if supplier_orders %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название модели</th>
+                        <th>Статус</th>
+                        <th>Имя и фамилия покупателя</th>
+                        <th>Id категории</th>
+                        <th>Адрес доставки</th>
+                        <th>Действия</th> <!-- Добавлено -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in supplier_orders %}
+                        <tr>
+                            <td>{{ order.model_name }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>{{ order.user.first_name }} {{ order.user.last_name }}</td>
+                            <td>{{ order.category_id }}</td>
+                            <td class="Address_street">{{ order.Address_street }}</td>
+                            <td>
+                                {% if order.status == "Заказ в обработке" %}
+                                    <button class="update-status-btn" data-order-id="{{ order.id }}" data-next-status="Заказ отправлен">Отметить как отправлен</button>
+                                {% endif %}
+                                {% if order.status == "Заказ отправлен" %}
+                                    <button class="update-status-btn" data-order-id="{{ order.id }}" data-next-status="Заказ доставлен">Отметить как доставлен</button>
+                                {% endif %}
+                                <!-- добавьте дополнительные кнопки для других статусов, если нужно -->
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>У вас пока нет заказов.</p>
+        {% endif %}
+    </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Подключаем jQuery -->
+<script src="{% static 'main/js/supplier_order.js' %}"></script> <!-- Подключаем наш JavaScript -->
+</body>
+</html>
