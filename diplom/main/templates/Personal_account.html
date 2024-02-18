@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/Personal_account.css' %}">
+</head>
+<body>
+<header>
+    {% if account_type == 'Поставщик' %}
+        <h1>Мои товары</h1>
+        <div class="button-actions">
+            <a href="/">Главная</a>
+            <a href="{% url 'supplier_orders' %}">Мои заказы</a>
+            <a href="/your_app/import_yaml/">Импорт товаров</a>
+        </div>
+    {% elif account_type == "Покупатель" %}
+    <h1>Корзина</h1>
+        <div class="button-actions">
+            <a href="/">Магазин</a>
+            <form action="{% url 'send_invoice_to_supplier' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Сделать заявку</button>
+            </form>
+        </div>
+    {% endif %}
+</header>
+<main>
+    <div class="product-list">
+        {% if account_type == 'Поставщик' %}
+            <ul>
+                {% for product in user_products %}
+                    <li>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Цена</th>
+                                    <th>Рекомендуемая цена</th>
+                                    <th>Модель товара</th>
+                                    <th>Имя модели</th>
+                                    <th>Количество</th>
+                                    <th>Параметры</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td>{{ product.price_rrc }}</td>
+                                    <td>{{ product.model }}</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                    <td>{{ product.formatted_parameters | safe }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                {% empty %}
+                    <p>У вас пока нет товаров.</p>
+                {% endfor %}
+            </ul>
+        {% elif account_type == 'Покупатель' %}
+            <h1>Товары в корзине:</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Поставщик</th>
+                        <th>Категория</th>
+                        <th>Название модели</th>
+                        <th>Цена</th>
+                        <th>Статус</th>
+                        <th>Убрать из корзины</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for product in user_cart %}
+                    <tr>
+                        <td>{{ product.category.shop.name }}</td>
+                        <td>{{ product.category.name }}</td>
+                        <td>{{ product.model_name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.status }}</td>
+                        <td>
+                            <form action="{% url 'remove_from_cart' product.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">x</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">Ваша корзина пуста.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</main>
+</body>
+</html>

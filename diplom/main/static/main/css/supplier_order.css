@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #333333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.header-links {
+    display: inline-block;
+}
+
+.header-links a {
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+}
+.order-list {
+    margin-top: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.order-list td.Address_street {
+    word-wrap: break-word;
+    white-space: pre-line; /* Это свойство позволит тексту переноситься на новую строку при обнаружении символа новой строки (\n) */
+}
+
+.order-list table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto; /* Добавляем горизонтальную прокрутку, если содержимое таблицы выходит за пределы */
+}
+
+.order-list th, .order-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word; /* Добавляем свойство для автоматического переноса текста */
+    white-space: normal; /* Устанавливаем перенос текста по словам */
+}
+
+.order-list th {
+    background-color: #333333;
+    color: white;
+}
+
+.button-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.button-actions a, .button-actions button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333333;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.button-actions a:hover, .button-actions button:hover {
+    background-color: #555555;
+}
